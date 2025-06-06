@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const space = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,8 +17,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+      <body className={`${space.className} bg-black`}>
+        <main className=" min-h-screen container mx-auto px-4 py-8 max-w-3xl  rounded-lg bg-black/50 backdrop-blur-sm shadow-md">
+          {children}
+        </main>
+        <Toaster
+          position="bottom-right"
+          expand={true}
+          richColors
+          theme="dark"
+          closeButton
+          style={{ marginBottom: "20px" }}
+        />
       </body>
     </html>
   );

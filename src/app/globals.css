@@ -1,42 +1,168 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --radius: 0.5rem;
   }
 }
 
-html,
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    color: white;
+    background-color: black;
+  }
+
+  /* Ensure all text elements are white by default */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  div,
+  a,
+  label,
+  button {
+    @apply text-white;
+  }
+
+  /* Input and form elements */
+  input,
+  textarea,
+  select {
+    @apply text-white bg-zinc-900 border-zinc-800;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-white/50;
+  }
+
+  /* Links */
+  a {
+    @apply text-white hover:text-white/80 transition-colors;
+  }
+
+  /* Buttons */
+  button {
+    @apply text-white;
+  }
+}
+
+html {
+  scroll-behavior: auto;
+}
+
 body {
-  max-width: 100vw;
   overflow-x: hidden;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Prose styles for markdown content */
+.prose {
+  @apply text-white max-w-none;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply text-white font-bold;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.prose p {
+  @apply text-white/90 leading-relaxed;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.prose a {
+  @apply text-white underline hover:text-white/80;
+}
+
+.prose code {
+  @apply bg-zinc-800 px-1 py-0.5 rounded text-sm text-white;
+}
+
+.prose pre {
+  @apply bg-zinc-900 p-4 rounded-md overflow-x-auto border border-zinc-800;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-sm font-mono text-white;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-zinc-700 pl-4 italic text-white/80;
+}
+
+.prose ul,
+.prose ol {
+  @apply text-white/90;
+}
+
+.prose li {
+  @apply text-white/90;
+}
+
+.prose img {
+  @apply rounded-lg border border-zinc-800;
+}
+
+.prose strong {
+  @apply text-white font-bold;
+}
+
+.prose em {
+  @apply text-white/90 italic;
+}
+
+/* Animation classes */
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
