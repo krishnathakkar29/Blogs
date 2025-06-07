@@ -55,3 +55,23 @@ export async function getBlogBySlug(slug: string) {
   }
 }
 
+export async function getAllBlogs() {
+  try {
+    const blogs = await prisma.blog.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return {
+      success: true,
+      blogs,
+    };
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return {
+      success: false,
+      message: "Error fetching blogs",
+    };
+  }
+}
