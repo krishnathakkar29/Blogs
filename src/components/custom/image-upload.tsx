@@ -1,13 +1,13 @@
 "use client";
 
-import type React from "react";
-import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { X, Upload, ImageIcon, Loader2, Copy, Check } from "lucide-react";
+import { uploadFile } from "@/lib/supabase/storage-client";
+import { Check, Copy, ImageIcon, Loader2, Upload, X } from "lucide-react";
+import type React from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { s3Upload } from "@/lib/s3";
 
 interface UploadedImage {
   url: string;
@@ -19,10 +19,9 @@ interface UploadedImage {
 interface ImageUploadProps {
   onInsert: (imageUrl: string, altText: string) => void;
   onCancel: () => void;
-  blogId?: string;
 }
 
-export function ImageUpload({ onInsert, onCancel, blogId }: ImageUploadProps) {
+export function ImageUpload({ onInsert, onCancel }: ImageUploadProps) {
   const [altText, setAltText] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
@@ -54,15 +53,21 @@ export function ImageUpload({ onInsert, onCancel, blogId }: ImageUploadProps) {
           continue;
         }
         console.log("Uploading file to S3:", file);
-        const data = await s3Upload(file);
-        console.log("Upload response:", data);
-        if (!data?.fileName || !data.fileName) {
+        const data = await uploadFile({
+          file,
+        });
+        if (!data.data?.fileName) {
           toast.error("Something went wrong");
           return;
         }
 
+        if (data.error) {
+          toast.error(data.error);
+          return;
+        }
+
         const newImage: UploadedImage = {
-          url: data.url,
+          url: data.data.url,
           filename: file.name,
           size: file.size,
         };
@@ -144,7 +149,6 @@ export function ImageUpload({ onInsert, onCancel, blogId }: ImageUploadProps) {
           Supported: JPG, PNG, GIF, WebP (Max 5MB each)
         </p>
       </div>
-
 
       {uploadedImages.length > 0 && (
         <div className="space-y-4">
