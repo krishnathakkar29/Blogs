@@ -1,6 +1,8 @@
 import BlogList from "@/components/custom/blog-list";
 import { getAllBlogs } from "../../actions/blog";
 
+export const dynamic = "force-dynamic";
+
 async function page() {
   const blogs = await getAllBlogs();
 
