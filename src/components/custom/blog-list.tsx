@@ -13,7 +13,7 @@ function BlogList({
     <div className="space-y-8">
       {blogs.map((blog) => (
         <React.Fragment key={blog.id}>
-          <article className="group">
+          <article className="group hover:bg-white/5 active:bg-white/10 transition-colors duration-200 rounded-lg p-4 -mx-4 cursor-pointer">
             <Link href={`/${blog.slug}`}>
               <div className="space-y-1">
                 <h2 className="text-xl font-medium leading-tight group-hover:text-white/80 transition-colors">

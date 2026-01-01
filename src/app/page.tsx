@@ -1,5 +1,4 @@
 import BlogList from "@/components/custom/blog-list";
-import { prisma } from "@/lib/db";
 import { getAllBlogs } from "../../actions/blog";
 
 async function page() {
